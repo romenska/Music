@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Music</string>
+
+    <!-- TTS -->
+    <string name="setup_tts"> Install TTS </string>
+    <string name="setup_tts_message"> You need to install or upgrade your speech synthesizer to work properly</string>
+    <string name="setup"> Set </string>
+    <string name="cancel"> Cancel </string>
+    <string name="our_games_on">OUR GAMES ON</string>
+    <string name="stress">accent mark</string>
+
+
+</resources>
