@@ -9,6 +9,7 @@ import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -16,6 +17,7 @@ import android.view.animation.Animation;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -26,13 +28,16 @@ import java.util.ArrayList;
 
 import static android.view.animation.AnimationUtils.loadAnimation;
 public class MainActivity extends AppCompatActivity {
-
+private static final String TAG = "MainActivity";
     private SoundPool mSoundPool;
     private AssetManager mAssetManager;
     private int mCatSound, mChickenSound, mCowSound, mDogSound, mDuckSound, mSheepSound;
     private ArrayList<Integer>  noteList = new ArrayList<>();
+    private ArrayList<ImageButton>  keyList = new ArrayList<>();
+    private ArrayList<Boolean>  keyPressList = new ArrayList<>();
     private int mStreamID;
-
+    LinearLayout sensor;
+    int lastStep=-1;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,14 +88,72 @@ public class MainActivity extends AppCompatActivity {
         ImageView dogImageButton = (ImageView) findViewById(R.id.imageButtonDog);
         dogImageButton.setOnClickListener(onClickListener);
 
-        ImageButton button1 = findViewById(R.id.button1);
-        ImageButton button2 = findViewById(R.id.button2);
-        ImageButton button3 = findViewById(R.id.button3);
-        ImageButton button4 = findViewById(R.id.button4);
-        ImageButton button5 = findViewById(R.id.button5);
-        ImageButton button6 = findViewById(R.id.button6);
-        ImageButton button7 = findViewById(R.id.button7);
+        keyList.add(findViewById(R.id.button1));
+        keyList.add(findViewById(R.id.button2));
+        keyList.add(findViewById(R.id.button3));
+        keyList.add(findViewById(R.id.button4));
+        keyList.add(findViewById(R.id.button5));
+        keyList.add(findViewById(R.id.button6));
+        keyList.add(findViewById(R.id.button7));
 
+
+
+        sensor = findViewById(R.id.sensor);
+
+
+
+        sensor.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int eventAction = event.getAction();
+                if (eventAction == MotionEvent.ACTION_DOWN) {
+                    lastStep=-1;
+                }
+                float x = event.getX();
+                float y = event.getY();
+                Log.d(TAG,"sound ");
+                Log.d(TAG,"x= "+x);
+                Log.d(TAG,"y= "+y);
+                Log.d(TAG,"sensor x= "+sensor.getWidth());
+                Log.d(TAG,"sensor y= "+sensor.getHeight());
+                float xx = sensor.getWidth();
+                xx=xx/7;
+
+                int step = (int) (x/xx);
+                step=(step>=7)?6:step;
+                if(lastStep!=step) {
+                    lastStep=step;
+                    playSound(noteList.get(step));
+                    keyList.get(step).startAnimation(loadAnimation(MainActivity.this, R.anim.button_press));
+                }
+
+
+                /*
+                if (x<xx){
+
+                } else if (x<xx*2){
+                    playSound(noteList.get( 1 ));
+                    button2.startAnimation(loadAnimation(MainActivity.this, R.anim.button_press));
+                } else if (x<xx*3){
+                    playSound(noteList.get( 2 ));
+                    button3.startAnimation(loadAnimation(MainActivity.this, R.anim.button_press));
+                } else if (x<xx*4){
+                    playSound(noteList.get( 3 ));
+                    button4.startAnimation(loadAnimation(MainActivity.this, R.anim.button_press));
+                } else if (x<xx*5){
+                    playSound(noteList.get( 4 ));
+                    button5.startAnimation(loadAnimation(MainActivity.this, R.anim.button_press));
+                }else if (x<xx*6){
+                    playSound(noteList.get( 5 ));
+                    button6.startAnimation(loadAnimation(MainActivity.this, R.anim.button_press));
+                }else if (x<xx*7){
+                    playSound(noteList.get( 6 ));
+                    button7.startAnimation(loadAnimation(MainActivity.this, R.anim.button_press));
+                }
+*/
+                return true;
+            }
+        });
 
 /*
         cowImageButton.setOnTouchListener(new View.OnTouchListener() {

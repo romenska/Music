@@ -77,7 +77,8 @@ android:visibility="gone"
         android:layout_height="match_parent"
         android:layout_margin="5dp"
         android:clipToPadding="false"
-        android:layout_centerInParent="true">
+        android:layout_centerInParent="true"
+        android:orientation="horizontal">
 
      <ImageButton
          android:id="@+id/button1"
@@ -86,10 +87,6 @@ android:visibility="gone"
          android:layout_height="match_parent"
          android:layout_weight="14"
          android:background="@drawable/key_red"
-         android:layout_margin="5dp"
-         android:elevation="3dp"
-         android:translationZ="2dp"
-         android:onClick="onClickKey"
          />
      <ImageButton
          android:id="@+id/button2"
@@ -98,10 +95,6 @@ android:visibility="gone"
          android:layout_height="match_parent"
          android:layout_weight="14"
          android:background="@drawable/key_orange"
-         android:layout_margin="5dp"
-         android:elevation="2dp"
-         android:translationZ="2dp"
-         android:onClick="onClickKey"
          />
      <ImageButton
          android:id="@+id/button3"
@@ -110,10 +103,7 @@ android:visibility="gone"
          android:layout_height="match_parent"
          android:layout_weight="14"
          android:background="@drawable/key_yellow"
-         android:layout_margin="5dp"
-         android:elevation="2dp"
-         android:translationZ="2dp"
-         android:onClick="onClickKey"/>
+     />
      <ImageButton
          android:id="@+id/button4"
          android:tag="3"
@@ -121,10 +111,7 @@ android:visibility="gone"
          android:layout_height="match_parent"
          android:layout_weight="14"
          android:background="@drawable/key_green"
-         android:layout_margin="5dp"
-         android:elevation="2dp"
-         android:translationZ="2dp"
-         android:onClick="onClickKey"
+
          />
      <ImageButton
          android:id="@+id/button5"
@@ -133,10 +120,7 @@ android:visibility="gone"
          android:layout_height="match_parent"
          android:layout_weight="14"
          android:background="@drawable/key_cyan"
-         android:layout_margin="5dp"
-         android:elevation="2dp"
-         android:translationZ="2dp"
-         android:onClick="onClickKey"
+
 
          />
      <ImageButton
@@ -146,10 +130,7 @@ android:visibility="gone"
          android:layout_height="match_parent"
          android:layout_weight="14"
          android:background="@drawable/key_blue"
-         android:layout_margin="5dp"
-         android:elevation="2dp"
-         android:translationZ="2dp"
-         android:onClick="onClickKey"
+
          />
      <ImageButton
          android:id="@+id/button7"
@@ -158,12 +139,16 @@ android:visibility="gone"
          android:layout_height="match_parent"
          android:layout_weight="14"
          android:background="@drawable/key_violet"
-         android:layout_margin="5dp"
-         android:elevation="2dp"
-         android:translationZ="2dp"
-         android:onClick="onClickKey"
+
          />
     </LinearLayout>
 
-
+    <LinearLayout
+        android:id="@+id/sensor"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:clipToPadding="false"
+        android:layout_centerInParent="true"
+        android:orientation="horizontal" />
 </RelativeLayout>
