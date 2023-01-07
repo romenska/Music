@@ -31,12 +31,15 @@ public class MainActivity extends AppCompatActivity {
 private static final String TAG = "MainActivity";
     private SoundPool mSoundPool;
     private AssetManager mAssetManager;
-    private int mCatSound, mChickenSound, mCowSound, mDogSound, mDuckSound, mSheepSound;
+    private int mCatSound, mChickenSound, mCowSound, mDogSound, mDuckSound, mSheepSound,mPigSound;
     private ArrayList<Integer>  noteList = new ArrayList<>();
     private ArrayList<ImageButton>  keyList = new ArrayList<>();
+    private ArrayList<ImageView>  animalList = new ArrayList<>();
+    private ArrayList<Integer>  soundAnimalList = new ArrayList<>();
     private ArrayList<Boolean>  keyPressList = new ArrayList<>();
     private int mStreamID;
     LinearLayout sensor;
+    LinearLayout sensorAnimal;
     int lastStep=-1;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -96,7 +99,13 @@ private static final String TAG = "MainActivity";
         keyList.add(findViewById(R.id.button6));
         keyList.add(findViewById(R.id.button7));
 
-
+        animalList.add(findViewById(R.id.animal1));
+        animalList.add(findViewById(R.id.animal2));
+        animalList.add(findViewById(R.id.animal3));
+        animalList.add(findViewById(R.id.animal4));
+        animalList.add(findViewById(R.id.animal5));
+        animalList.add(findViewById(R.id.animal6));
+        animalList.add(findViewById(R.id.animal7));
 
         sensor = findViewById(R.id.sensor);
 
@@ -125,32 +134,38 @@ private static final String TAG = "MainActivity";
                     lastStep=step;
                     playSound(noteList.get(step));
                     keyList.get(step).startAnimation(loadAnimation(MainActivity.this, R.anim.button_press));
+                    animalList.get(step).startAnimation(loadAnimation(MainActivity.this, R.anim.text_up));
                 }
 
+                return true;
+            }
+        });
 
-                /*
-                if (x<xx){
 
-                } else if (x<xx*2){
-                    playSound(noteList.get( 1 ));
-                    button2.startAnimation(loadAnimation(MainActivity.this, R.anim.button_press));
-                } else if (x<xx*3){
-                    playSound(noteList.get( 2 ));
-                    button3.startAnimation(loadAnimation(MainActivity.this, R.anim.button_press));
-                } else if (x<xx*4){
-                    playSound(noteList.get( 3 ));
-                    button4.startAnimation(loadAnimation(MainActivity.this, R.anim.button_press));
-                } else if (x<xx*5){
-                    playSound(noteList.get( 4 ));
-                    button5.startAnimation(loadAnimation(MainActivity.this, R.anim.button_press));
-                }else if (x<xx*6){
-                    playSound(noteList.get( 5 ));
-                    button6.startAnimation(loadAnimation(MainActivity.this, R.anim.button_press));
-                }else if (x<xx*7){
-                    playSound(noteList.get( 6 ));
-                    button7.startAnimation(loadAnimation(MainActivity.this, R.anim.button_press));
+        sensorAnimal = findViewById(R.id.sensorAnimal);
+
+
+
+        sensorAnimal.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int eventAction = event.getAction();
+                if (eventAction == MotionEvent.ACTION_DOWN) {
+                    lastStep=-1;
                 }
-*/
+                float x = event.getX();
+                float y = event.getY();
+                float xx = sensor.getWidth();
+                xx=xx/7;
+
+                int step = (int) (x/xx);
+                step=(step>=7)?6:step;
+                if(lastStep!=step) {
+                    lastStep=step;
+                    playSound(soundAnimalList.get(step));
+                    animalList.get(step).startAnimation(loadAnimation(MainActivity.this, R.anim.bounce));
+                }
+
                 return true;
             }
         });
@@ -271,6 +286,20 @@ private static final String TAG = "MainActivity";
         mDogSound = mSoundPool.load(MainActivity.this, R.raw.dog,1);
         mDuckSound = mSoundPool.load(MainActivity.this, R.raw.duck,1);
         mSheepSound = mSoundPool.load(MainActivity.this, R.raw.sheep,1);
+        mPigSound=mSoundPool.load(MainActivity.this, R.raw.pig,1);
+
+
+        soundAnimalList.add(mSoundPool.load(MainActivity.this, R.raw.pig,1));
+        soundAnimalList.add(mSoundPool.load(MainActivity.this, R.raw.dog,1));
+        soundAnimalList.add(mSoundPool.load(MainActivity.this, R.raw.duck,1));
+        soundAnimalList.add(mSoundPool.load(MainActivity.this, R.raw.cow,1));
+        soundAnimalList.add(mSoundPool.load(MainActivity.this, R.raw.chicken,1));
+        soundAnimalList.add(mSoundPool.load(MainActivity.this, R.raw.cat,1));
+        soundAnimalList.add(mSoundPool.load(MainActivity.this, R.raw.sheep,1));
+
+
+
+
 
         noteList.add(mSoundPool.load(MainActivity.this, R.raw.n_1,1));
         noteList.add(mSoundPool.load(MainActivity.this, R.raw.n_2,1));
